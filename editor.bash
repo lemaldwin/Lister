@@ -8,23 +8,36 @@ viewCustomers()
 #name checkers
 #1. Duplicates
 #2. Existence
+checkDups()
+{
+	duplcate= false
+	checker=`echo $name|grep ^$name$`
+
+	if [ "$checker" == "$name" ]; then
+		duplicate= true
+	fi
+}
 getName()
 {
 	echo -e "\n"
 	echo -n "Enter customer name: "
 	read name
 
-	if [ "$name" = "" ]; then
+	if [ "$name" == "" ]; then
 		echo "Please enter a customer name."
 		getName
 	fi
+}
+fixFile()
+{
+	sed -i "/^$/d" list.txt
 }
 menu()
 {
 	echo -e "What to do?"
 	echo -e "\t(1) View customers"
 	echo -e "\t(2) Add a customer"
-	echo -e "\t(3) Delete a customer\n"
+	echo -e "\t(3) Delete a customer"
 	echo -e "\t(q) Quit"
 	echo -ne "\tChoose the number: "
 	read choice
@@ -36,8 +49,14 @@ menu()
 			;;
 		2)
 			getName
-			#add a name
-			echo $name >> list.txt
+			checkDups
+			echo $duplicate
+			if [ "$duplicate" ]; then
+				echo "Customer already exists!"
+			else
+				#add a name
+				echo $name >> list.txt
+			fi
 
 			clear
 			viewCustomers
@@ -47,14 +66,15 @@ menu()
 			getName
 
 			#check if name exists
-			nameChecker= `cat list.txt|grep ^$name$`
-			if [ "$nameChecker" -eq "" ]; then
+			nameChecker=`cat list.txt|grep ^$name$`
+			if [ "$nameChecker" == "" ]; then
 				echo "Customer name is not on the list."
 			else
 				#delete the name from the file
 				sed -i "/^$name$/d" list.txt
 			fi
 
+			fixFile
 			clear
 			viewCustomers
 			;;
