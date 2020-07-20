@@ -6,15 +6,14 @@ viewCustomers()
 }
 
 #name checkers
-#1. Duplicates
-#2. Existence
+#1. Duplicates - for add
+#2. Existence - for delete
 checkDups()
 {
-	duplcate= false
-	checker=`echo $name|grep ^$name$`
-
+	duplcate=false
+	checker=`grep ^$name$ list.txt`
 	if [ "$checker" == "$name" ]; then
-		duplicate= true
+		duplicate=true
 	fi
 }
 getName()
@@ -50,15 +49,15 @@ menu()
 		2)
 			getName
 			checkDups
-			echo $duplicate
 			if [ "$duplicate" ]; then
-				echo "Customer already exists!"
+				echo "Customer already in list!"
 			else
+			{
 				#add a name
 				echo $name >> list.txt
+			}
 			fi
 
-			clear
 			viewCustomers
 			;;
 		3)
@@ -70,8 +69,10 @@ menu()
 			if [ "$nameChecker" == "" ]; then
 				echo "Customer name is not on the list."
 			else
+			{
 				#delete the name from the file
 				sed -i "/^$name$/d" list.txt
+			}
 			fi
 
 			fixFile
