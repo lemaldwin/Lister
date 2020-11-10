@@ -1,6 +1,6 @@
 #!/bin/bash
 
-viewCustomers()
+viewList()
 {
 	./viewer.bash
 }
@@ -10,7 +10,7 @@ viewCustomers()
 #2. Existence - for delete
 checkDups()
 {
-	duplcate=false
+	duplicate=false
 	checker=`grep ^$name$ list.txt`
 	if [ "$checker" == "$name" ]; then
 		duplicate=true
@@ -19,11 +19,11 @@ checkDups()
 getName()
 {
 	echo -e "\n"
-	echo -n "Enter customer name: "
+	echo -n "Enter name: "
 	read name
 
 	if [ "$name" == "" ]; then
-		echo "Please enter a customer name."
+		echo "Please enter the name."
 		getName
 	fi
 }
@@ -34,23 +34,23 @@ fixFile()
 menu()
 {
 	echo -e "What to do?"
-	echo -e "\t(1) View customers"
-	echo -e "\t(2) Add a customer"
-	echo -e "\t(3) Delete a customer"
+	echo -e "\t(1) View List"
+	echo -e "\t(2) Add a an item"
+	echo -e "\t(3) Delete a an item"
 	echo -e "\t(q) Quit"
 	echo -ne "\tChoose the number: "
 	read choice
 	case "$choice" in
 		1)
 			clear
-			viewCustomers
-			#echo "Would you like to edit the list of customers?(y/n)[ ]"\b\b\c
+			viewList
+			#echo "Would you like to edit the list?(y/n)[ ]"\b\b\c
 			;;
 		2)
 			getName
 			checkDups
-			if [ "$duplicate" ]; then
-				echo "Customer already in list!"
+			if [ "$duplicate" == "true" ]; then
+				echo "Item is already in list!"
 			else
 			{
 				#add a name
@@ -58,16 +58,16 @@ menu()
 			}
 			fi
 
-			viewCustomers
+			viewList
 			;;
 		3)
-			viewCustomers
+			viewList
 			getName
 
 			#check if name exists
 			nameChecker=`cat list.txt|grep ^$name$`
 			if [ "$nameChecker" == "" ]; then
-				echo "Customer name is not on the list."
+				echo "Item name is not on the list."
 			else
 			{
 				#delete the name from the file
@@ -77,7 +77,7 @@ menu()
 
 			fixFile
 			clear
-			viewCustomers
+			viewList
 			;;
 		q|Q)
 			exit 0
