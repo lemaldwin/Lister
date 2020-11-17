@@ -2,7 +2,7 @@
 
 LIST=`cat list.txt`
 
-declare -a CUSTOMERARR=($LIST)
+declare -a ITEMSARR=($LIST)
 
 #determine number of columns
 columns=4
@@ -11,10 +11,10 @@ columns=4
 #max number of characters alloted per customer
 maxchar=12
 
-echo -e "\nList of Customers:\n"
+echo -e "\nList of Items:\n"
 echo -n "	"
 counter=0
-for customer in ${CUSTOMERARR[*]}; do
+for customer in ${ITEMSARR[*]}; do
 	((counter++))
 	echo -n $customer
 

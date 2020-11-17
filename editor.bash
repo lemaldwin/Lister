@@ -35,8 +35,8 @@ menu()
 {
 	echo -e "What to do?"
 	echo -e "\t(1) View List"
-	echo -e "\t(2) Add a an item"
-	echo -e "\t(3) Delete a an item"
+	echo -e "\t(2) Add an item"
+	echo -e "\t(3) Delete an item"
 	echo -e "\t(q) Quit"
 	echo -ne "\tChoose the number: "
 	read choice
