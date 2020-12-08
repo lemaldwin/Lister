@@ -47,6 +47,7 @@ menu()
 			#echo "Would you like to edit the list?(y/n)[ ]"\b\b\c
 			;;
 		2)
+			#Add Item
 			getName
 			checkDups
 			if [ "$duplicate" == "true" ]; then
@@ -57,7 +58,7 @@ menu()
 				echo $name >> list.txt
 			}
 			fi
-
+			clear
 			viewList
 			;;
 		3)
